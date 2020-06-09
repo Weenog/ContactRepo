@@ -7,11 +7,11 @@ namespace ContactListApp.Models
 {
     public class Contact
     {
-        string LastName;
-        string FirstName;
-        string Email;
-        int    TelNr;
-        string Adress;
-        string Description;
+        public string LastName { get; set;}
+        public string FirstName { get; set; }
+        public string Email { get; set; }
+        public int TelNr { get; set; }
+        public string Adress { get; set; }
+        public string Description { get; set; }
     }
 }
