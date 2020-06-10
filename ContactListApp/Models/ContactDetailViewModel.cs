@@ -1,23 +1,15 @@
 ﻿using ContactListApp.Domain;
-
 using Microsoft.AspNetCore.Http;
-
 using System;
-
 using System.Collections.Generic;
-
 using System.Linq;
-
 using System.Threading.Tasks;
 
 
 
 namespace ContactListApp.Models
-
 {
-
     public class ContactDetailViewModel
-
     {
 
         public string FirstName { get; set; }
@@ -37,7 +29,5 @@ namespace ContactListApp.Models
         public Byte[] Avatar { get; set; }
 
         public ContactType ContactType { get; set; }
-
     }
-
 }

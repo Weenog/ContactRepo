@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-
 namespace ContactListApp.Models
 {
-
     public class ContactIndexViewModel
     {
 
@@ -21,7 +19,5 @@ namespace ContactListApp.Models
         {
             return $"{FirstName} {LastName}";
         }
-
     }
-
 }

@@ -58,11 +58,7 @@ namespace ContactWeb
                     name: "default",
 
                     pattern: "{controller=Contact}/{action=Index}/{id?}");
-
             });
-
         }
-
     }
-
 }

@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 
 namespace ContactListApp.Domain
-
 {
 
     public class Contact
-
     {
-
         public int Id { get; set; }
 
         public string FirstName { get; set; }
@@ -32,23 +29,15 @@ namespace ContactListApp.Domain
         public Byte[] Avatar { get; set; }
 
         public ContactType ContactType { get; set; }
-
     }
 
 
 
     public enum ContactType
-
     {
-
         Family,
-
         Friend,
-
         Colleague,
-
         Stranger
-
     }
-
 }

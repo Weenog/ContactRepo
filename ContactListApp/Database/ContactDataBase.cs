@@ -1,24 +1,16 @@
 ﻿
 using ContactListApp.Domain;
-
 using System;
-
 using System.Collections.Generic;
-
 using System.Linq;
-
 using System.Threading.Tasks;
 
 
 
 namespace ContactListApp.Database
-
 {
-
     public interface IContactDatabase
-
     {
-
         Contact Insert(Contact contact);
 
         IEnumerable<Contact> GetContacts();
@@ -32,11 +24,8 @@ namespace ContactListApp.Database
     }
 
 
-
     public class ContactDatabase : IContactDatabase
-
     {
-
         private int _counter;
 
         private readonly List<Contact> _contacts;
@@ -44,45 +33,31 @@ namespace ContactListApp.Database
 
 
         public ContactDatabase()
-
         {
-
             if (_contacts == null)
-
             {
-
                 _contacts = new List<Contact>();
-
             }
-
         }
 
 
 
         public Contact GetContact(int id)
-
         {
-
             return _contacts.FirstOrDefault(x => x.Id == id);
-
         }
 
 
 
         public IEnumerable<Contact> GetContacts()
-
         {
-
             return _contacts;
-
         }
 
 
 
         public Contact Insert(Contact contact)
-
         {
-
             _counter++;
 
             contact.Id = _counter;
@@ -90,67 +65,42 @@ namespace ContactListApp.Database
             _contacts.Add(contact);
 
             return contact;
-
         }
 
 
 
         public void Delete(int id)
-
         {
-
             var contact = _contacts.SingleOrDefault(x => x.Id == id);
 
             if (contact != null)
-
             {
-
                 _contacts.Remove(contact);
-
             }
-
         }
 
 
 
         public void Update(int id, Contact updatedContact)
-
         {
-
             var contact = _contacts.SingleOrDefault(x => x.Id == id);
-
             if (contact != null)
-
             {
-
                 contact.FirstName = updatedContact.FirstName;
-
                 contact.LastName = updatedContact.LastName;
-
                 contact.Email = updatedContact.Email;
-
                 contact.BirthDate = updatedContact.BirthDate;
-
                 contact.Description = updatedContact.Description;
-
                 contact.PhoneNumber = updatedContact.PhoneNumber;
-
                 contact.Address = updatedContact.Address;
-
             }
 
 
 
             if (updatedContact.Avatar != null)
-
             {
-
                 contact.Avatar = updatedContact.Avatar;
-
             }
-
         }
-
     }
-
 }

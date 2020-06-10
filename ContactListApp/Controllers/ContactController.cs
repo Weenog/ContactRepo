@@ -19,6 +19,7 @@ namespace ContactListApp.Controllers
             _contactDatabase = contacts;
         }
 
+
         public IActionResult Index()
         {
             var contacts = _contactDatabase.GetContacts()
@@ -30,7 +31,6 @@ namespace ContactListApp.Controllers
                 });
             return View(contacts);
         }
-
 
 
         public IActionResult Detail(int id)
@@ -51,13 +51,10 @@ namespace ContactListApp.Controllers
             return View(contact);
         }
 
-
-
         public IActionResult Create()
         {
             return View();
         }
-
 
 
         [HttpPost]

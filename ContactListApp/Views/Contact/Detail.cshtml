@@ -61,7 +61,6 @@ else
 
     int CalculateAge(DateTime releaseDate)
     {
-
         return (int)((DateTime.Now - releaseDate).Days / 365.25);
     }
 
@@ -69,12 +68,7 @@ else
 
     string ConvertBytesToImg(Byte[] image)
     {
-
         string imreBase64Data = Convert.ToBase64String(image);
-
-
-
         return $"data:image/png;base64,{imreBase64Data}";
     }
-
 }
