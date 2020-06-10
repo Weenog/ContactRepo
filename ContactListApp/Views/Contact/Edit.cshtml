@@ -72,20 +72,18 @@
 
 
 
-
-
     @*<div>
-        @if (Model.FileBytes.Length > 0)
+        @if (model.filebytes.length > 0)
         {
-            <img src="@ConvertBytesToImg(Model.FileBytes)" />
+            <img src="@convertbytestoimg(model.filebytes)" />
         }
 
         else
         {
-            <p>No avatar available</p>
-        }*@
+            <p>no avatar available</p>
+        }
 
-    </div>
+    </div>*@
 
     <div>
         <dl>
