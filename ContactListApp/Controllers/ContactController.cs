@@ -15,7 +15,7 @@ namespace ContactListApp.Controllers
     public class ContactController : Controller
     {
         private readonly IContactDatabase _contactDatabase;
-        private readonly IWebHostEnvironment_hostEnvironment;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
 
         public ContactController(IContactDatabase contacts, IWebHostEnvironment hostEnvironment)
