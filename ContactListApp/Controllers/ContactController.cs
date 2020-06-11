@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ContactListApp.Database;
 using ContactListApp.Domain;
 using ContactListApp.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,9 +15,13 @@ namespace ContactListApp.Controllers
     public class ContactController : Controller
     {
         private readonly IContactDatabase _contactDatabase;
-        public ContactController(IContactDatabase contacts)
+        private readonly IWebHostEnvironment_hostEnvironment;
+
+
+        public ContactController(IContactDatabase contacts, IWebHostEnvironment hostEnvironment)
         {
             _contactDatabase = contacts;
+            _hostEnvironment = hostEnvironment;
         }
 
 
@@ -46,7 +51,8 @@ namespace ContactListApp.Controllers
                 Description = contactFromDb.Description,
                 BirthDate = contactFromDb.BirthDate,
                 ContactType = contactFromDb.ContactType,
-                Avatar = contactFromDb.Avatar
+                Avatar = contactFromDb.Avatar,
+                PhotoUrl = contactFromDb.PhotoUrl,
             };
             return View(contact);
         }
@@ -88,7 +94,7 @@ namespace ContactListApp.Controllers
                 Description = contact.Description,
                 BirthDate = contact.BirthDate,
                 ContactType = contact.ContactType,
-                Avatar = file
+                
             };
 
             _contactDatabase.Insert(contactToDb);
@@ -111,7 +117,7 @@ namespace ContactListApp.Controllers
                 Description = contactFromDb.Description,
                 BirthDate = contactFromDb.BirthDate,
                 ContactType = contactFromDb.ContactType,
-                FileBytes = contactFromDb.Avatar
+                PhotoUrl = contactFromDb.PhotoUrl,
             };
 
             return View(contact);
@@ -139,7 +145,8 @@ namespace ContactListApp.Controllers
                 Email = contact.Email,
                 Description = contact.Description,
                 ContactType = contact.ContactType,
-                BirthDate = contact.BirthDate
+                BirthDate = contact.BirthDate,
+                PhotoUrl = contact.PhotoUrl,
             };
 
 

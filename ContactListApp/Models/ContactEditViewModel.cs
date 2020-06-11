@@ -46,6 +46,7 @@ namespace ContactListApp.Models
         [DataType(DataType.MultilineText)]
         [MaxLength(250, ErrorMessage = "Maximum 250 characters!")]
         public string Description { get; set; }
+        public string PhotoUrl { get; set; }
 
         public byte[] FileBytes { get; set; }
         public ContactType ContactType { get; set; }
