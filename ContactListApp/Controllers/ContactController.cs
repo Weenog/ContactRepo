@@ -51,7 +51,6 @@ namespace ContactListApp.Controllers
                 Description = contactFromDb.Description,
                 BirthDate = contactFromDb.BirthDate,
                 ContactType = contactFromDb.ContactType,
-                Avatar = contactFromDb.Avatar,
                 PhotoUrl = contactFromDb.PhotoUrl,
             };
             return View(contact);
@@ -59,8 +58,13 @@ namespace ContactListApp.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var vm = new ContactCreateViewModel
+            {
+                BirthDate = new DateTime(1990, 1, 1)
+            };
+            return View(vm);
         }
+
 
 
         [HttpPost]
@@ -70,20 +74,7 @@ namespace ContactListApp.Controllers
             {
                 return View(contact);
             }
-            byte[] file;
-
-
-            if (contact.Avatar != null)
-            {
-                file = GetBytesFromFile(contact.Avatar);
-            }
-            else
-            {
-                file = new byte[] { };
-            }
-
-
-
+          
             var contactToDb = new Contact()
             {
                 FirstName = contact.FirstName,
@@ -97,8 +88,21 @@ namespace ContactListApp.Controllers
                 
             };
 
+            if (contact.Avatar != null)
+            {
+                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(contact.Avatar.FileName);
+                var path = Path.Combine(_hostEnvironment.WebRootPath, "photos", uniqueFileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    contact.Avatar.CopyTo(stream);
+                }
+                contactToDb.PhotoUrl = "/photos/" + uniqueFileName;
+            }
+
             _contactDatabase.Insert(contactToDb);
+
             return RedirectToAction("Index");
+
         }
 
 
@@ -170,63 +174,34 @@ namespace ContactListApp.Controllers
             if (contact.Avatar != null)
 
             {
-
                 var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(contact.Avatar.FileName);
-
                 var path = Path.Combine(_hostEnvironment.WebRootPath, "photos", uniqueFileName);
-
                 Contact contactFromDb = _contactDatabase.GetContact(id);
 
 
-
                 if (!string.IsNullOrEmpty(contactFromDb.PhotoUrl))
-
                 {
-
                     var prevPath = Path.Combine(_hostEnvironment.WebRootPath, "photos", contactFromDb.PhotoUrl.Substring(8));
-
                     System.IO.File.Delete(prevPath);
-
                 }
-
-
 
                 using (var stream = new FileStream(path, FileMode.Create))
-
                 {
-
                     contact.Avatar.CopyTo(stream);
-
                 }
 
-
-
                 contactToDb.PhotoUrl = "/photos/" + uniqueFileName;
-
             }
 
             else
-
             {
-
                 Contact contactFromDb = _contactDatabase.GetContact(id);
-
-
-
                 if (!string.IsNullOrEmpty(contactFromDb.PhotoUrl))
-
                     contactToDb.PhotoUrl = contactFromDb.PhotoUrl;
-
             }
 
-
-
             _contactDatabase.Update(id, contactToDb);
-
-
-
             return RedirectToAction("Detail", new { Id = id });
-
         }
 
         public IActionResult Delete(int id)
@@ -239,7 +214,6 @@ namespace ContactListApp.Controllers
                 FirstName = contactFromDb.FirstName,
                 LastName = contactFromDb.LastName,
             };
-
             return View(contact);
         }
 
