@@ -97,9 +97,12 @@ namespace ContactListApp.Database
 
 
 
-            if (updatedContact.Avatar != null)
+            if (updatedContact.PhotoUrl != null)
+
             {
-                contact.Avatar = updatedContact.Avatar;
+
+                contact.PhotoUrl = updatedContact.PhotoUrl;
+
             }
         }
     }

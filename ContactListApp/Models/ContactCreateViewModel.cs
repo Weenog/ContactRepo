@@ -16,17 +16,17 @@ namespace ContactListApp.Models
 
         [DisplayName("First name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "First name cannot be empty")]
-        [MaxLength(25, ErrorMessage = "Maximum 30 characters!")]
+        [MaxLength(25, ErrorMessage = "Maximum 25 characters!")]
         public string FirstName { get; set; }
 
 
         [DisplayName("Last name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Last name cannot be empty")]
-        [MaxLength(25, ErrorMessage = "Maximum 30 characters!")]
+        [MaxLength(25, ErrorMessage = "Maximum 25 characters!")]
         public string LastName { get; set; }
 
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "email cannot be empty")]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "email cannot be empty")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
@@ -49,5 +49,6 @@ namespace ContactListApp.Models
 
         public ContactType ContactType { get; set; }
         public IFormFile Avatar { get; set; }
+
     }
 }

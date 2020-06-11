@@ -29,6 +29,8 @@ namespace ContactListApp.Domain
         public Byte[] Avatar { get; set; }
 
         public ContactType ContactType { get; set; }
+
+        public string PhotoUrl { get; set; }
     }
 
 

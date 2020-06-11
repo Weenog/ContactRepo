@@ -144,23 +144,83 @@ namespace ContactListApp.Controllers
 
 
 
+            //    if (contact.Avatar != null)
+            //    {
+            //        var bytes = GetBytesFromFile(contact.Avatar);
+            //        contactToDb.Avatar = bytes;
+            //    }
+
+            //    else
+            //    {
+            //        contactToDb.Avatar = contact.FileBytes;
+            //    }
+
+            //    _contactDatabase.Update(id, contactToDb);
+
+            //    return RedirectToAction("Detail", new { Id = id });
+            //}
+
             if (contact.Avatar != null)
+
             {
-                var bytes = GetBytesFromFile(contact.Avatar);
-                contactToDb.Avatar = bytes;
+
+                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(contact.Avatar.FileName);
+
+                var path = Path.Combine(_hostEnvironment.WebRootPath, "photos", uniqueFileName);
+
+                Contact contactFromDb = _contactDatabase.GetContact(id);
+
+
+
+                if (!string.IsNullOrEmpty(contactFromDb.PhotoUrl))
+
+                {
+
+                    var prevPath = Path.Combine(_hostEnvironment.WebRootPath, "photos", contactFromDb.PhotoUrl.Substring(8));
+
+                    System.IO.File.Delete(prevPath);
+
+                }
+
+
+
+                using (var stream = new FileStream(path, FileMode.Create))
+
+                {
+
+                    contact.Avatar.CopyTo(stream);
+
+                }
+
+
+
+                contactToDb.PhotoUrl = "/photos/" + uniqueFileName;
+
             }
 
             else
+
             {
-                contactToDb.Avatar = contact.FileBytes;
+
+                Contact contactFromDb = _contactDatabase.GetContact(id);
+
+
+
+                if (!string.IsNullOrEmpty(contactFromDb.PhotoUrl))
+
+                    contactToDb.PhotoUrl = contactFromDb.PhotoUrl;
+
             }
+
+
 
             _contactDatabase.Update(id, contactToDb);
 
+
+
             return RedirectToAction("Detail", new { Id = id });
+
         }
-
-
 
         public IActionResult Delete(int id)
         {
